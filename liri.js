@@ -38,19 +38,43 @@ client.get('statuses/user_timeline', params, function(error, tweets, response){
 	});
 };
 
+
+
 var song = function(){
 
+
 var spotify = require('spotify');
+var songName = process.argv[3];
+var strArray = [];
+
+if(process.argv.length > 4){
+
+	for(var i = 3; i < process.argv.length; i++){
+		strArray.push(process.argv[i]);
+	}
+	var str = strArray.join(' ');
+	songName = str;
+
+}
+else if(songName == undefined){
+	songName = "what's my age again";
+}
+
  
-spotify.search({ type: 'track', query: process.argv[3] }, function(err, data) {
+ 
+spotify.search({ type: 'track', query: songName }, function(err, data) {
     if ( err ) {
         console.log('Error occurred: ' + err);
         return;
     }
- 	
+ 			
+ 			console.log('==========Artist==========');
     		console.log(data.tracks.items[0].artists[0].name);
+    		console.log('==========Track==========');
             console.log(data.tracks.items[0].name);
+            console.log('==========Preview URL==========');
             console.log(data.tracks.items[0].preview_url);
+            console.log('==========Album==========');
             console.log(data.tracks.items[0].album.name);
 
 });
