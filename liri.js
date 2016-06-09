@@ -1,5 +1,7 @@
 var keys = require('./keys.js');
 var Twitter = require('twitter');
+var spotify = require('spotify');
+var request = require('request');
 var userCommand = process.argv[2];
 
 // console.log(keys.twitterKeys.consumer_key);
@@ -42,8 +44,6 @@ client.get('statuses/user_timeline', params, function(error, tweets, response){
 
 var song = function(){
 
-
-var spotify = require('spotify');
 var songName = process.argv[3];
 var strArray = [];
 
@@ -82,7 +82,51 @@ spotify.search({ type: 'track', query: songName }, function(err, data) {
 };
 
 var movie = function(){
+	var input;
+	var strArray = [];
+	if(process.argv.length > 4){
 
+		for(var i = 3; i < process.argv.length; i++){
+			strArray.push(process.argv[i]);
+		}
+		var str = strArray.join(' ');
+		input = str;
+	}
+	else if(process.argv.length == 4){
+		input = process.argv[3];
+	}
+	else if(process.argv[3] == undefined){
+		input = 'Mr. Nobody';
+	}
+
+
+
+	var url = 'http://www.omdbapi.com/?t=' + input + '&y=&plot=short&r=json&tomatoes=true';
+
+	request(url, function(err, response, body){
+
+		body = JSON.parse(body);
+		console.log('===========Title===========');
+		console.log(body.Title);
+		console.log('===========Year===========');
+		console.log(body.Year);
+		console.log('===========IMDB Rating===========');
+		console.log(body.imdbRating);
+		console.log('===========Country===========');
+		console.log(body.Country);
+		console.log('===========Language===========');
+		console.log(body.Language);
+		console.log('===========Plot===========');
+		console.log(body.Plot);
+		console.log('===========Actors===========');
+		console.log(body.Actors);
+		console.log('===========Rotten Tomatoes Rating===========');
+		console.log(body.tomatoRating);
+		console.log('===========Rotten Tomatoes URL===========');
+		console.log(body.tomatoURL);
+
+
+	});
 
 
 };
