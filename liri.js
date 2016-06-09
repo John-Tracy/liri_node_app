@@ -40,8 +40,6 @@ client.get('statuses/user_timeline', params, function(error, tweets, response){
 	});
 };
 
-
-
 var song = function(){
 
 var songName = process.argv[3];
@@ -60,8 +58,6 @@ else if(songName == undefined){
 	songName = "what's my age again";
 }
 
- 
- 
 spotify.search({ type: 'track', query: songName }, function(err, data) {
     if ( err ) {
         console.log('Error occurred: ' + err);
@@ -99,8 +95,6 @@ var movie = function(){
 		input = 'Mr. Nobody';
 	}
 
-
-
 	var url = 'http://www.omdbapi.com/?t=' + input + '&y=&plot=short&r=json&tomatoes=true';
 
 	request(url, function(err, response, body){
@@ -125,9 +119,7 @@ var movie = function(){
 		console.log('===========Rotten Tomatoes URL===========');
 		console.log(body.tomatoURL);
 
-
 	});
-
 
 };
 
