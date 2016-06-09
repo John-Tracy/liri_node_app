@@ -36,12 +36,40 @@ client.get('statuses/user_timeline', params, function(error, tweets, response){
 		}
 	}
 	});
-	
+};
+
+var song = function(){
+
+var spotify = require('spotify');
+ 
+spotify.search({ type: 'track', query: process.argv[3] }, function(err, data) {
+    if ( err ) {
+        console.log('Error occurred: ' + err);
+        return;
+    }
+ 	
+    		console.log(data.tracks.items[0].artists[0].name);
+            console.log(data.tracks.items[0].name);
+            console.log(data.tracks.items[0].preview_url);
+            console.log(data.tracks.items[0].album.name);
+
+});
+
+};
+
+var movie = function(){
+
 
 
 };
 
 if(userCommand == 'my-tweets'){
-	tweetFunction()
+	tweetFunction();
+}
+else if(userCommand == 'spotify-this-song'){
+	song();
+}
+else if(userCommand == 'movie-this'){
+	movie();
 }
 
