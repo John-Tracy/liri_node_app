@@ -5,7 +5,26 @@ var spotify = require('spotify');
 var request = require('request');
 var userCommand = process.argv[2];
 
-// console.log(keys.twitterKeys.consumer_key);
+var dataLog = function(){
+	var command = process.argv[2];
+	var userParam;
+	var holder = []; 
+	if(process.argv.length == 4){
+		userParam = process.argv[3];
+	}
+	else if(process.argv.length > 4){
+		for(var i = 3; i < process.argv.length; i++){
+			holder.push(process.argv[i]);
+		}
+		userParam = holder.join(' ');
+	}
+
+
+	var strComp = command + ',' + userParam + ';';
+
+	fs.appendFile('log.txt', strComp, 'utf8', function(err){});
+
+};
 
 var tweetFunction = function(){
 
@@ -156,4 +175,5 @@ var direction = function(){
 
 };
 
+dataLog();
 direction();
