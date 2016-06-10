@@ -1,3 +1,4 @@
+fs = require('fs');
 var keys = require('./keys.js');
 var Twitter = require('twitter');
 var spotify = require('spotify');
@@ -123,13 +124,36 @@ var movie = function(){
 
 };
 
-if(userCommand == 'my-tweets'){
-	tweetFunction();
-}
-else if(userCommand == 'spotify-this-song'){
-	song();
-}
-else if(userCommand == 'movie-this'){
-	movie();
-}
+var doIt = function(){
+	fs.readFile('random.txt', 'utf8', function(err, data){
+		if(err){
+			console.log('ERROR: ' + err);
+		}
+		else{
+			var splitArray = data.split(',');
+			userCommand = splitArray[0];
+			process.argv[3] = splitArray[1];
 
+			direction();
+		}
+	});
+};
+
+var direction = function(){
+
+	if(userCommand == 'my-tweets'){
+		tweetFunction();
+	}
+	else if(userCommand == 'spotify-this-song'){
+		song();
+	}
+	else if(userCommand == 'movie-this'){
+		movie();
+	}
+	else if(userCommand == 'do-what-it-says'){
+		doIt()
+	}
+
+};
+
+direction();
