@@ -5,7 +5,8 @@ var spotify = require('spotify');
 var request = require('request');
 var userCommand = process.argv[2];
 
-var stringy = function(){
+var stringy = function(){   // invoked in case of multiple word user inputs
+							// turns all the words into one usable string
 	var holder = [];
 	for(var i = 3; i < process.argv.length; i++){
 		holder.push(process.argv[i]);
@@ -14,7 +15,7 @@ var stringy = function(){
 
 };
 
-var dataLog = function(){
+var dataLog = function(){        // logs all user inputs into log text file
 	var command = process.argv[2];
 	var userParam;
 	var holder = []; 
@@ -25,15 +26,14 @@ var dataLog = function(){
 		
 		userParam = stringy();
 	}
-
-
+	
 	var strComp = command + ',' + userParam + ';';
 
 	fs.appendFile('log.txt', strComp, 'utf8', function(err){});
 
 };
 
-var tweetFunction = function(){
+var tweetFunction = function(){ // uses twitter npm to utilize API to grab tweets
 
 var client = new Twitter({
   consumer_key: keys.twitterKeys.consumer_key,
@@ -67,7 +67,7 @@ client.get('statuses/user_timeline', params, function(error, tweets, response){
 	});
 };
 
-var song = function(){
+var song = function(){		// uses spotify npm package to utilize api to get requested song info for user.
 
 var songName = process.argv[3];
 var strArray = [];
@@ -77,7 +77,7 @@ if(process.argv.length > 4){
 	songName = stringy();
 
 }
-else if(songName == undefined){
+else if(songName == undefined){			// in the case the user didnt give a song name
 	songName = "what's my age again";
 }
 
@@ -100,7 +100,7 @@ spotify.search({ type: 'track', query: songName }, function(err, data) {
 
 };
 
-var movie = function(){
+var movie = function(){		// uses request npm to use omdb api to get user requested movie info
 	var input;
 	var strArray = [];
 	if(process.argv.length > 4){
@@ -110,7 +110,7 @@ var movie = function(){
 	else if(process.argv.length == 4){
 		input = process.argv[3];
 	}
-	else if(process.argv[3] == undefined){
+	else if(process.argv[3] == undefined){ // in the case that the user didnt give a user name
 		input = 'Mr. Nobody';
 	}
 
@@ -142,12 +142,12 @@ var movie = function(){
 
 };
 
-var doIt = function(){
-	fs.readFile('random.txt', 'utf8', function(err, data){
+var doIt = function(){  // does this from info in random text file.
+	fs.readFile('random.txt', 'utf8', function(err, data){ // reads file to grab info to be used.
 		if(err){
 			console.log('ERROR: ' + err);
 		}
-		else{
+		else{	// parses data to be used to make a command and execute.
 			var splitArray = data.split(',');
 			userCommand = splitArray[0];
 			process.argv[3] = splitArray[1];
@@ -158,7 +158,7 @@ var doIt = function(){
 };
 
 var direction = function(){
-
+								// validates which command the user made then executes the corresponding function
 	if(userCommand == 'my-tweets'){
 		tweetFunction();
 	}
