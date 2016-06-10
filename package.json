@@ -1,0 +1,25 @@
+{
+  "name": "liri",
+  "version": "1.0.0",
+  "description": "A command line based language interpretation and Recognition Interface Application that utilizes the Twitter API, Spotify API, and OMDB API to provide information to the user.",
+  "main": "liri.js",
+  "dependencies": {
+    "spotify": "^0.3.0",
+    "request": "^2.72.0",
+    "twitter": "^1.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/John-Tracy/liri_node_app.git"
+  },
+  "author": "John Tracy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/John-Tracy/liri_node_app/issues"
+  },
+  "homepage": "https://github.com/John-Tracy/liri_node_app#readme"
+}
