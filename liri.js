@@ -5,6 +5,15 @@ var spotify = require('spotify');
 var request = require('request');
 var userCommand = process.argv[2];
 
+var stringy = function(){
+	var holder = [];
+	for(var i = 3; i < process.argv.length; i++){
+		holder.push(process.argv[i]);
+	}
+	return holder.join(' ');
+
+};
+
 var dataLog = function(){
 	var command = process.argv[2];
 	var userParam;
@@ -13,10 +22,8 @@ var dataLog = function(){
 		userParam = process.argv[3];
 	}
 	else if(process.argv.length > 4){
-		for(var i = 3; i < process.argv.length; i++){
-			holder.push(process.argv[i]);
-		}
-		userParam = holder.join(' ');
+		
+		userParam = stringy();
 	}
 
 
@@ -67,11 +74,7 @@ var strArray = [];
 
 if(process.argv.length > 4){
 
-	for(var i = 3; i < process.argv.length; i++){
-		strArray.push(process.argv[i]);
-	}
-	var str = strArray.join(' ');
-	songName = str;
+	songName = stringy();
 
 }
 else if(songName == undefined){
@@ -102,11 +105,7 @@ var movie = function(){
 	var strArray = [];
 	if(process.argv.length > 4){
 
-		for(var i = 3; i < process.argv.length; i++){
-			strArray.push(process.argv[i]);
-		}
-		var str = strArray.join(' ');
-		input = str;
+		input = stringy();
 	}
 	else if(process.argv.length == 4){
 		input = process.argv[3];
